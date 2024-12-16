@@ -19,12 +19,12 @@ public class ApplicationConfig {
 
     private static final int WEB_CLIENT_TIMEOUT = 15 * 60 * 1000;
 
-    @Value("${weathermap.host}")
-    private String weathermapHost;
+    @Value("${openweathermap.base-url}")
+    private String weathermapBaseUrl;
 
     @Bean
     public WeathermapClient weathermapClient() {
-        return new WeathermapClient(webClient(weathermapHost));
+        return new WeathermapClient(webClient(weathermapBaseUrl));
     }
 
     private WebClient webClient(String host) {
