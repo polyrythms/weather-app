@@ -27,6 +27,7 @@ public class ApplicationConfig {
         return new WeathermapClient(webClient(weathermapBaseUrl));
     }
 
+
     private WebClient webClient(String host) {
         TcpClient tcpClient = TcpClient.create()
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, WEB_CLIENT_TIMEOUT)

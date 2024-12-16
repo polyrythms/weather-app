@@ -2,3 +2,6 @@ spring.application.name=weather-app
 
 bot.name=DenisJavaStudyBOT:
 bot.token=
+
+openweathermap.base-url=api.openweathermap.org/data/2.5/forecast
+openweathermap.api-key=
