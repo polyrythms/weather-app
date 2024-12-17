@@ -1,7 +1,6 @@
 package ru.pet_project.weather_app.json.openweathermap;
 
 import lombok.Data;
-import ru.pet_project.weather_app.model.Weather;
 
 import java.util.List;
 

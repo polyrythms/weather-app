@@ -29,46 +29,46 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        CurrencyModel currencyModel = new CurrencyModel();
-        String currency = "";
-
-        if (update.hasMessage() && update.getMessage().hasText()) {
-            String messageText = update.getMessage().getText();
-            long chatId = update.getMessage().getChatId();
-
-            switch (messageText) {
-                case "/start":
-                    startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
-                    break;
-                default:
-                    try {
-                        currency = CurrencyService.getCurrencyRate(messageText, currencyModel);
-
-                    } catch (IOException e) {
-                        sendMessage(chatId, "We have not found such a currency." + "\n" +
-                                "Enter the currency whose official exchange rate" + "\n" +
-                                "you want to know in relation to BYN." + "\n" +
-                                "For example: USD");
-                    } catch (ParseException e) {
-                        throw new RuntimeException("Unable to parse date");
-                    }
-                    sendMessage(chatId, currency);
-            }
-        }
+//        CurrencyModel currencyModel = new CurrencyModel();
+//        String currency = "";
+//
+//        if (update.hasMessage() && update.getMessage().hasText()) {
+//            String messageText = update.getMessage().getText();
+//            long chatId = update.getMessage().getChatId();
+//
+//            switch (messageText) {
+//                case "/start":
+//                    startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
+//                    break;
+//                default:
+//                    try {
+//                        currency = CurrencyService.getCurrencyRate(messageText, currencyModel);
+//
+//                    } catch (IOException e) {
+//                        sendMessage(chatId, "We have not found such a currency." + "\n" +
+//                                "Enter the currency whose official exchange rate" + "\n" +
+//                                "you want to know in relation to BYN." + "\n" +
+//                                "For example: USD");
+//                    } catch (ParseException e) {
+//                        throw new RuntimeException("Unable to parse date");
+//                    }
+//                    sendMessage(chatId, currency);
+//            }
+//        }
 
     }
 
     @Override
     public void onUpdatesReceived(List<Update> updates) {
-        super.onUpdatesReceived(updates);
-    }
-
-    private void startCommandReceived(Long chatId, String name) {
-        String answer = "Hi, " + name + ", nice to meet you!" + "\n" +
-                "Enter the currency whose official exchange rate" + "\n" +
-                "you want to know in relation to BYN." + "\n" +
-                "For example: USD";
-        sendMessage(chatId, answer);
+//        super.onUpdatesReceived(updates);
+//    }
+//
+//    private void startCommandReceived(Long chatId, String name) {
+//        String answer = "Hi, " + name + ", nice to meet you!" + "\n" +
+//                "Enter the currency whose official exchange rate" + "\n" +
+//                "you want to know in relation to BYN." + "\n" +
+//                "For example: USD";
+//        sendMessage(chatId, answer);
     }
 
     private void sendMessage(Long chatId, String textToSend) {
