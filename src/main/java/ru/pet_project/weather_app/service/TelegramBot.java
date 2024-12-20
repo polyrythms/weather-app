@@ -1,26 +1,31 @@
 package ru.pet_project.weather_app.service;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import ru.pet_project.weather_app.config.BotConfig;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 
 @Component
-@AllArgsConstructor
 public class TelegramBot extends TelegramLongPollingBot {
-    private final BotConfig botConfig;
+
+    @Value("${bot.name}")
+    private String botName;
+    @Value("${bot.token}")
+    private String botToken;
+
+    public TelegramBot(String botToken) {
+        super(botToken);
+    }
 
     @Override
     public String getBotUsername() {
-        return botConfig.getBotName();
+        return botName;
     }
+
 
     @Override
     public void onRegister() {
