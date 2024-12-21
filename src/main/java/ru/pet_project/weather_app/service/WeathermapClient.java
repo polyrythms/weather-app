@@ -5,7 +5,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import ru.pet_project.weather_app.json.openweathermap.OpenweathermapResponse;
 import ru.pet_project.weather_app.model.City;
-import ru.pet_project.weather_app.model.Weather;
 
 public class WeathermapClient implements WeatherSupplier {
 
@@ -18,17 +17,14 @@ public class WeathermapClient implements WeatherSupplier {
     }
 
     @Override
-    public Weather getWeather(City city) {
-        Mono<OpenweathermapResponse> response = webClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .queryParam("q", city.getName())
-                        .queryParam("appid", apiKey)
-                        .queryParam("units", "metric")
-                        .build())
-                .retrieve()
-                .bodyToMono(OpenweathermapResponse.class);
-        var res =  response.block();
-        System.out.println(res);
-        return null;
+    public Mono<OpenweathermapResponse> getWeather(City city) {
+        return webClient.get()
+               .uri(uriBuilder -> uriBuilder
+                       .queryParam("q", city.getName())
+                       .queryParam("appid", apiKey)
+                       .queryParam("units", "metric")
+                       .build())
+               .retrieve()
+               .bodyToMono(OpenweathermapResponse.class);
     }
 }
