@@ -1,5 +1,21 @@
 spring.application.name=weather-app
 
+spring.datasource.url=jdbc:postgresql://localhost:5454/web
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+spring.datasource.hikari.username=web
+spring.datasource.hikari.password=web
+spring.datasource.hikari.connection-timeout=60000
+spring.datasource.hikari.maximum-pool-size=20
+spring.datasource.hikari.minimum-idle=1
+spring.datasource.hikari.auto-commit=false
+spring.datasource.hikari.max-lifetime=40000
+spring.datasource.hikari.keepalive-time=30000
+hibernate.default_catalog=web
+hibernate.default_schema=web
+spring.jpa.hibernate.ddl-auto=none
+
 bot.name=DenisJavaStudyBOT:
 bot.token=
 

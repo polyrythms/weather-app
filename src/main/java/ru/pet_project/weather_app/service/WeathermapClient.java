@@ -6,7 +6,7 @@ import reactor.core.publisher.Mono;
 import ru.pet_project.weather_app.json.openweathermap.OpenweathermapResponse;
 import ru.pet_project.weather_app.model.City;
 
-public class WeathermapClient implements WeatherSupplier {
+public class WeathermapClient {
 
     private final WebClient webClient;
     @Value("${openweathermap.api-key}")
@@ -16,7 +16,6 @@ public class WeathermapClient implements WeatherSupplier {
         this.webClient = webClient;
     }
 
-    @Override
     public Mono<OpenweathermapResponse> getWeather(City city) {
         return webClient.get()
                .uri(uriBuilder -> uriBuilder
