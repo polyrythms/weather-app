@@ -10,7 +10,7 @@
     </parent>
     <groupId>ru.pet-project</groupId>
     <artifactId>weather-app</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>weather-app</name>
     <description>weather app with tg bot</description>
     <url/>
@@ -34,7 +34,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>3.4.1</version>
         </dependency>
         <dependency>
             <groupId>org.telegram</groupId>
@@ -104,7 +103,25 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <version>1.4.9</version>
+                <configuration>
+                    <repository>weather-app</repository>
+                </configuration>
+            </plugin>
         </plugins>
+
     </build>
 
 </project>

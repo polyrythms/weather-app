@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class WeathermapService implements WeatherSupplier {
     private final WeathermapClient weathermapClient;
-    private final WeathermapCityRepository weathermapCityRepository;
+//    private final WeathermapCityRepository weathermapCityRepository;
 
 
     @Override

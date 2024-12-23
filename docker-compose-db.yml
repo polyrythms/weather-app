@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+
+  db:
+    image: postgres:latest
+    container_name: weather-app-postgres
+    restart: always
+    volumes:
+      -  /home/java/postgres-data:/var/lib/postgresql/data
+
+    ports:
+      - "5454:5432"
+    network_mode: "host"
+    environment:
+      POSTGRES_DB: "web"
+      POSTGRES_USER: "web"
+      POSTGRES_PASSWORD: "web"
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+      TZ: 'GMT+5'
