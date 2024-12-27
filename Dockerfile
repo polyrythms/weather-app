@@ -10,7 +10,7 @@ RUN apt-get update \
     && echo 'LANG="ru_RU.UTF-8"'>/etc/default/locale \
     && dpkg-reconfigure --frontend=noninteractive locales \
     && update-locale LANG=ru_RU.UTF-8 \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-11-jdk
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-17-jdk
 
 ENV LANG ru_RU.UTF-8
 ENV LANGUAGE ru_RU:ru

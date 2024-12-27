@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.pet_project.weather_app.model.City;
 import ru.pet_project.weather_app.model.Weather;
-import ru.pet_project.weather_app.repository.WeathermapCityRepository;
 
 import java.util.List;
 

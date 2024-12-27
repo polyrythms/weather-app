@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+
+  weather-app:
+    image: weather-app:latest
+    restart: always
+    volumes:
+      - /home/java/weather-app:/var/local
+
+    ports:
+      - "5433:5432"
+    network_mode: "host"

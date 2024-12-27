@@ -4,13 +4,12 @@ services:
 
   db:
     image: postgres:latest
-    container_name: weather-app-postgres
+    container_name: databasepg
     restart: always
     volumes:
       -  /home/java/postgres-data:/var/lib/postgresql/data
-
     ports:
-      - "5454:5432"
+      - "5432:5432"
     network_mode: "host"
     environment:
       POSTGRES_DB: "web"
