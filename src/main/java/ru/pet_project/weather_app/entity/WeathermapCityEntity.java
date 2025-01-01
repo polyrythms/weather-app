@@ -10,6 +10,7 @@ import lombok.Getter;
 //@Table(name = "city_weathermap", schema = "public")
 //@Getter
 public class WeathermapCityEntity {
+
 //    @Id
 //    private Long id;
 //

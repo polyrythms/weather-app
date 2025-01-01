@@ -1,6 +1,6 @@
 spring.application.name=weather-app
 
-spring.datasource.url=jdbc:postgresql://localhost:5454/web
+spring.datasource.url=jdbc:postgresql://localhost:5432/web
 spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 spring.datasource.driver-class-name=org.postgresql.Driver
 
@@ -16,8 +16,11 @@ hibernate.default_catalog=web
 hibernate.default_schema=web
 spring.jpa.hibernate.ddl-auto=none
 
-bot.name=DenisJavaStudyBOT:
-bot.token=
 
-openweathermap.base-url=api.openweathermap.org/data/2.5/forecast
-openweathermap.api-key=
+bot.name=DenisJavaStudyBOT
+bot.token=6242986641:AAGBckfTGjPiOd3n6JrOoMg4_L7SmZsEv70
+
+openweathermap.base-url=https://api.openweathermap.org/data/2.5/forecast
+openweathermap.api-key=4dba935ce934b9381d57502dade72d9a
+
+spring.liquibase.change-log=classpath:db.changelog/db.changelog-master.yaml
