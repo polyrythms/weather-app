@@ -3,6 +3,7 @@ package ru.pet_project.weather_app;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import ru.pet_project.weather_app.entity.WeathermapCityEntity;
 import ru.pet_project.weather_app.model.City;
 import ru.pet_project.weather_app.service.WeathermapClient;
 
@@ -13,6 +14,6 @@ public class WeathermapClientTest {
 
     @Test
     public void getWeather_shouldReturnWeather() {
-        weathermapClient.getWeather(new City("Chelyabinsk"));
+        weathermapClient.getWeather(new WeathermapCityEntity("Chelyabinsk"));
     }
 }

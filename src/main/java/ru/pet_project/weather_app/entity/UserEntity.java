@@ -6,7 +6,8 @@ import jakarta.persistence.*;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private long chatId;
+    private Long id;
+    @Column(name = "chat_id")
+    private Long chatId;
     private String name;
 }

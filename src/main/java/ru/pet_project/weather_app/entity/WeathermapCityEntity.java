@@ -1,19 +1,30 @@
 package ru.pet_project.weather_app.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 
-//@Entity
-//@Table(name = "city_weathermap", schema = "public")
-//@Getter
+@Entity
+@Table(name = "city_weathermap", schema = "public")
+@Getter
 public class WeathermapCityEntity {
+    public WeathermapCityEntity() {
 
-//    @Id
-//    private Long id;
-//
-//    @Column(name = "city_name")
-//    private String cityName;
+    }
+
+    public WeathermapCityEntity(String city) {
+        this.city = city;
+    }
+    @Id
+    private Long id;
+    private Long weathermapId;
+    //    @Column(name = "city_id")
+    //    private Long cityId;
+    private String city;
+    private String state;
+
+    private String country;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "city_id", referencedColumnName = "id")
+    private CityEntity cityEntity;
 }

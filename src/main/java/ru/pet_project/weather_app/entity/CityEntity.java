@@ -1,8 +1,6 @@
 package ru.pet_project.weather_app.entity;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.Getter;
 
 
@@ -13,6 +11,7 @@ public class CityEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "city_name")
-    private String cityName;
+    private String city;
+    private String state;
+    private String country;
 }
