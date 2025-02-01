@@ -10,10 +10,10 @@ import ru.pet_project.weather_app.service.WeathermapClient;
 @SpringBootTest
 public class WeathermapClientTest {
     @Autowired
-    WeathermapClient weathermapClient;
+    private WeathermapClient weathermapClient;
 
     @Test
     public void getWeather_shouldReturnWeather() {
-        weathermapClient.getWeather(new WeathermapCityEntity("Chelyabinsk"));
+        weathermapClient.getWeather("1508291");
     }
 }

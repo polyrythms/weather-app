@@ -41,7 +41,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             Long chatId = update.getMessage().getChatId();
             switch (messageText) {
                 case "/weather" -> {
-                    OpenweathermapResponse response = weathermapClient.getWeather(new City("Chelyabinsk")).block();
+                    OpenweathermapResponse response = weathermapClient.getWeather("1508291").block();
                     assert response != null;
                     JSONObject jsonObject = new JSONObject(response);
                     String s = jsonObject.toString(4);
