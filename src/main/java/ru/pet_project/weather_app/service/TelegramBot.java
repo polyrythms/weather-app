@@ -16,6 +16,8 @@ import java.util.List;
 public class TelegramBot extends TelegramLongPollingBot {
     private final TelegramBotConfig config;
     private final WeathermapClient weathermapClient;
+    public static final String LOCATION_MESSAGE_PREFIX = "Локация: ";
+    public static final String SEPARATOR = ", ";
 
     public TelegramBot(TelegramBotConfig config, WeathermapClient weathermapClient) {
         super(config.getBotToken());
@@ -50,22 +52,42 @@ public class TelegramBot extends TelegramLongPollingBot {
                 }
                 case "/description" -> sendMessage(chatId, "description");
                 default -> {
+                    if (validateLocationMessage(messageText) != null) {
+                        City city = parseMessageTextToCity(messageText);
+                        sendMessage(chatId, String.valueOf(city));
+                    }
                 }
             }
         }
     }
 
+    public City parseMessageTextToCity(String messageText) {
+        String[] names = messageText.split(SEPARATOR);
+        if (names.length == 0 || names.length > 3)
+            return null;
+        City city = new City();
+        for (int i = 0; i < names.length; i++) {
+            if (i == 0) {
+                city.setCity(names[i]);
+            } else if (i == 1) {
+                city.setCountry(names[i]);
+            } else {
+                city.setState(names[i]);
+            }
+        }
+        return city;
+    }
+
+    public String validateLocationMessage(String message) {
+        if (!message.matches(LOCATION_MESSAGE_PREFIX + ".*")) {
+            return null;
+        }
+        return message.replaceFirst(LOCATION_MESSAGE_PREFIX, "");
+    }
+
     @Override
     public void onUpdatesReceived(List<Update> updates) {
         super.onUpdatesReceived(updates);
-    }
-
-    private void startCommandReceived(Long chatId, String name) {
-        String answer = "Hi, " + name + ", nice to meet you!" + "\n" +
-                "Enter the currency whose official exchange rate" + "\n" +
-                "you want to know in relation to BYN." + "\n" +
-                "For example: USD";
-        sendMessage(chatId, answer);
     }
 
     private void sendMessage(Long chatId, String textToSend) {
