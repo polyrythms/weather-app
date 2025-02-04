@@ -14,4 +14,19 @@ public class CityEntity {
     private String city;
     private String state;
     private String country;
+
+    @Override
+    public String toString() {
+        return "CityEntity{" +
+                "id=" + id +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", country='" + country + '\'' +
+                '}';
+    }
+    public String toStringWithoutNullFields() {
+        return city
+                + (country == null ? "" : (", " + country))
+                + (state == null ? "" : ", " + state);
+    }
 }

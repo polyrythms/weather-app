@@ -20,4 +20,9 @@ public class City {
                 ", state='" + state + '\'' +
                 '}';
     }
+    public String toStringWithoutNullFields() {
+        return city
+                + (country == null ? "" : (", " + country))
+                + (state == null ? "" : ", " + state);
+    }
 }

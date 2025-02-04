@@ -1,6 +1,5 @@
 package ru.pet_project.weather_app.service;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -17,10 +16,10 @@ public class WeathermapClient {
         this.webClient = webClient;
     }
 
-    public Mono<OpenweathermapResponse> getWeather(String wmCityId) {
+    public Mono<OpenweathermapResponse> getWeather(Long wmCityId) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .queryParam("id", wmCityId)
+                        .queryParam("id", wmCityId.toString())
                         .queryParam("appid", apiKey)
                         .queryParam("units", "metric")
                         .build())

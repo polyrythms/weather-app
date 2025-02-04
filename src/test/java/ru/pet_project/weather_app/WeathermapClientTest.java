@@ -14,6 +14,9 @@ public class WeathermapClientTest {
 
     @Test
     public void getWeather_shouldReturnWeather() {
-        weathermapClient.getWeather("1508291");
+        var result1 =weathermapClient.getWeather(1508291L).block();
+        System.out.println(result1);
+        var result2 = weathermapClient.getWeather(2968815L).block();
+        System.out.println(result2);
     }
 }

@@ -7,14 +7,15 @@ import ru.pet_project.weather_app.config.TelegramBotConfig;
 import ru.pet_project.weather_app.model.City;
 import ru.pet_project.weather_app.service.TelegramBot;
 import ru.pet_project.weather_app.service.WeathermapClient;
+import ru.pet_project.weather_app.service.WeathermapService;
 
 public class TelegramBotUnitTest {
 
     private final TelegramBotConfig telegramBotConfig = new TelegramBotConfig();
     @Mock
-    private WeathermapClient weathermapClient;
+    private WeathermapService weathermapService;
     private final String city = "Челябинск";
-    private final TelegramBot telegramBot = new TelegramBot(telegramBotConfig, weathermapClient);
+    private final TelegramBot telegramBot = new TelegramBot(telegramBotConfig, weathermapService);
 
 
     @Test

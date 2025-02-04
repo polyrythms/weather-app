@@ -7,22 +7,25 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.pet_project.weather_app.config.TelegramBotConfig;
-import ru.pet_project.weather_app.json.openweathermap.OpenweathermapResponse;
+import ru.pet_project.weather_app.entity.WeathermapCityEntity;
 import ru.pet_project.weather_app.model.City;
+import ru.pet_project.weather_app.model.Weather;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TelegramBot extends TelegramLongPollingBot {
     private final TelegramBotConfig config;
-    private final WeathermapClient weathermapClient;
     public static final String LOCATION_MESSAGE_PREFIX = "Локация: ";
     public static final String SEPARATOR = ", ";
+    public static final String LOCATION_NOT_FOUND = "Не нашли локацию";
+    private final WeathermapService weathermapService;
 
-    public TelegramBot(TelegramBotConfig config, WeathermapClient weathermapClient) {
+    public TelegramBot(TelegramBotConfig config, WeathermapService weathermapService) {
         super(config.getBotToken());
         this.config = config;
-        this.weathermapClient = weathermapClient;
+        this.weathermapService = weathermapService;
     }
 
     @Override
@@ -43,7 +46,9 @@ public class TelegramBot extends TelegramLongPollingBot {
             Long chatId = update.getMessage().getChatId();
             switch (messageText) {
                 case "/weather" -> {
-                    OpenweathermapResponse response = weathermapClient.getWeather("1508291").block();
+                    var entity = new WeathermapCityEntity();
+                    entity.setWeathermapId(1508291L);
+                    List<Weather> response = weathermapService.getWeather(entity);
                     assert response != null;
                     JSONObject jsonObject = new JSONObject(response);
                     String s = jsonObject.toString(4);
@@ -52,9 +57,22 @@ public class TelegramBot extends TelegramLongPollingBot {
                 }
                 case "/description" -> sendMessage(chatId, "description");
                 default -> {
-                    if (validateLocationMessage(messageText) != null) {
-                        City city = parseMessageTextToCity(messageText);
-                        sendMessage(chatId, String.valueOf(city));
+                    String location = validateLocationMessage(messageText);
+                    if (location != null) {
+                        String answer;
+                        City city = parseMessageTextToCity(location);
+                        List<WeathermapCityEntity> wmCities = weathermapService.validateCity(city);
+                        if (wmCities == null || wmCities.size() == 0) {
+                            answer = LOCATION_NOT_FOUND;
+                        } else if (wmCities.size() == 1) {
+                            List<Weather> weather = weathermapService.getWeather(wmCities.get(0));
+                            answer = "Погода для города " + wmCities.get(0).getCityEntity().toStringWithoutNullFields() + "\n" +
+                                    weatherToMessage(weather);
+                        } else {
+                            answer = "Нашли такие города, выберите один однозначный: \n"
+                                    + wmCities.stream().map(a -> a.getCityEntity().toStringWithoutNullFields()).collect(Collectors.joining("\n"));
+                        }
+                        sendMessage(chatId, answer);
                     }
                 }
             }
@@ -63,8 +81,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     public City parseMessageTextToCity(String messageText) {
         String[] names = messageText.split(SEPARATOR);
-        if (names.length == 0 || names.length > 3)
-            return null;
+        if (names.length == 0 || names.length > 3) return null;
         City city = new City();
         for (int i = 0; i < names.length; i++) {
             if (i == 0) {
@@ -97,7 +114,18 @@ public class TelegramBot extends TelegramLongPollingBot {
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
-            System.out.println("a");
+            System.out.println(e.getMessage());
         }
+    }
+
+    public String weatherToMessage(List<Weather> weatherList) {
+        String message = weatherList.get(0).getCity().toStringWithoutNullFields();
+        for (Weather weather : weatherList) {
+            message += "\n" + weather.getDate()
+                    + "\n" + weather.getTemperature()
+                    + "\n" + weather.getCloud().getDescription()
+                    + "\n" + weather.getWind().getDirection().getDescriptionInRussian();
+        }
+        return message.substring(400);
     }
 }

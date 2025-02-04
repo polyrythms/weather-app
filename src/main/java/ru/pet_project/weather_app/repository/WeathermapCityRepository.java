@@ -8,7 +8,7 @@ import java.util.List;
 public interface WeathermapCityRepository extends JpaRepository<WeathermapCityEntity, Long> {
     List<WeathermapCityEntity> findAllByCityEntityCity(String city);
 
-    List<WeathermapCityEntity> findAllByCityEntityCityAndCountry(String city, String country);
+    List<WeathermapCityEntity> findAllByCityEntityCityAndCityEntityCountry(String city, String country);
 
-    List<WeathermapCityEntity> findAllByCityEntityCityAndCountryAndState(String city, String country, String state);
+    List<WeathermapCityEntity> findByCityEntityCityAndCityEntityCountryAndCityEntityState(String city, String country, String state);
 }
